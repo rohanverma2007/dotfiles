@@ -1,0 +1,5 @@
+[org/blueman/general]
+window-properties=[1906, 1039, 0, 0]
+
+[org/blueman/plugins/recentconns]
+recent-connections=[{'adapter': 'E8:48:B8:C8:20:00', 'address': 'AC:BF:71:CE:D8:0A', 'alias': 'LE-Rohan Headphones', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1753017460.4360058'}]

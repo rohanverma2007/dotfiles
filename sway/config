@@ -1,0 +1,127 @@
+# Monitors
+output DP-3 mode 1920x1080@239.757004Hz pos 0 0
+output DP-2 mode 1920x1080@60.000000Hz pos 1920 0
+
+# Cursors
+seat * xcursor_theme Bibata-Modern-Classic 24
+
+# Startup
+exec dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+
+exec waybar -c ~/.config/waybar/config.jsonc -s ~/.config/waybar/style.css
+
+exec swww-daemon
+exec swww img ~/Downloads/wp12478612.jpg
+
+exec foot --server &
+exec pipewire &
+exec wireplumber &
+exec blueman-applet &
+exec pipewire-pulse &
+exec swaync
+
+#exec_always --no-startup-id pkill -f "Xwayland.*:0" ; sleep 1 ; env __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json Xwayland :0 -rootless
+
+# Keybindings
+set $mod Super
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy --type image/png
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+r exec fuzzel
+bindsym $mod+q exec foot
+bindsym $mod+c kill
+bindsym $mod+Shift+c reload
+bindsym $mod+f fullscreen
+bindsym $mod+m exit
+bindsym $mod+Shift+w exec "pkill waybar; waybar -c ~/.config/waybar/config.jsonc -s ~/.config/waybar/style.css &"
+
+bindsym $mod+Right move right
+bindsym $mod+Left move left
+
+bindsym $mod+p exec sudo bootctl set-oneshot auto-windows && sudo reboot
+
+# Super+Up and Super+Down to resize container height directly (outside of resize mode)
+bindsym $mod+Up resize grow width 1 px or 1 ppt
+bindsym $mod+Down resize shrink width 1 px or 1 ppt
+
+# Dragging Workspaces
+tiling_drag enable
+floating_modifier $mod normal
+default_border normal 2
+smart_borders on
+
+# Window gaps
+gaps inner 5
+gaps outer 2
+
+default_border normal 2
+bindsym $mod+h split h
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+#bindsym $mod+s workspace number 15
+
+bindsym $mod+Shift+1 move container to workspace number 1,  workspace 1
+bindsym $mod+Shift+2 move container to workspace number 2,  workspace 2
+bindsym $mod+Shift+3 move container to workspace number 3,  workspace 3
+bindsym $mod+Shift+4 move container to workspace number 4,  workspace 4
+bindsym $mod+Shift+5 move container to workspace number 5,  workspace 5
+bindsym $mod+Shift+6 move container to workspace number 6,  workspace 6
+bindsym $mod+Shift+7 move container to workspace number 7,  workspace 7
+bindsym $mod+Shift+8 move container to workspace number 8,  workspace 8
+bindsym $mod+Shift+9 move container to workspace number 9,  workspace 9
+bindsym $mod+Shift+0 move container to workspace number 10, workspace 10
+
+workspace 1 output DP-3
+workspace 3 output DP-3
+workspace 5 output DP-3
+workspace 7 output DP-3
+workspace 9 output DP-3
+
+workspace 2 output DP-2
+workspace 4 output DP-2
+workspace 6 output DP-2
+workspace 8 output DP-2
+workspace 10 output DP-2
+
+
+# Move to next monitor
+bindsym $mod+z move container to output left
+
+# Mouse
+seat * xcursor_theme Bibata-Modern-Classic 24
+
+input "1133:50503:Logitech_USB_Receiver" {
+    accel_profile flat
+    pointer_accel -0.35
+}
+
+# Topbar
+font Arimo Nerd Font 11
+
+# Remove gaps from waybar
+for_window [app_id="waybar"] gaps top 0
+for_window [app_id="waybar"] gaps bottom 0
+for_window [app_id="waybar"] gaps left 0
+for_window [app_id="waybar"] gaps right 0
+
+client.focused          #202020 #202020 #ffffff #202020 #202020
+client.unfocused        #181818 #181818 #bbbbbb #181818 #181818
+client.focused_inactive #181818 #181818 #aaaaaa #181818 #181818
+client.urgent           #ff5555 #ff5555 #ffffff #ff5555 #ff5555
+client.background       #000000
+
+# Startup
+exec "noisetorch -i 'alsa_input.usb-Razer_Inc._Razer_Seiren_V3_Mini-00.mono-fallback' &"
+
+bar { status_command while date; do sleep 1; done }
+
+xwayland enable

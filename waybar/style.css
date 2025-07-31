@@ -1,0 +1,43 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: Arimo Nerd Font;
+  font-size: 18px;
+  min-height: 0;
+}
+
+#workspaces button {
+  margin: 0;
+  padding: 6;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #888888;
+  min-width: 0;
+  font-size: 18px;
+}
+
+#workspaces {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+window#waybar {
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+#workspaces button.focused {
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+#clock {
+  margin: 0 2px;
+  padding: 0 8px;
+  color: white;
+}

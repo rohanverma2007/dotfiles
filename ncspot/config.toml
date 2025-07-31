@@ -1,0 +1,15 @@
+# Enable nerdfont since you have it
+use_nerdfont = true
+
+# Try different backends - common ones include:
+# "alsa", "pulse", "portaudio", "rodio"
+backend = "alsa"  # or try "alsa" if on Linux
+
+# You can also specify a specific device
+# backend_device = "your_device_name"
+
+# Enable audio cache
+audio_cache = true
+
+# Set bitrate
+bitrate = 320
