@@ -1,3 +1,0 @@
-[screencast]
-chooser_cmd=slurp -f %o -or
-chooser_type=simple

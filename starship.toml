@@ -1,75 +1,95 @@
-add_newline = true
+# Sourcerer Theme for Starship - Fixed
 
-format = """\
-  $username\
-  $memory_usage\
-  $hostname\
-  $directory\
-  $git_branch\
-  $git_commit\
-  $git_state\
-  $git_status\
-  $package\
-  $python\
-  $rust\
-  $nix_shell\
-  $env_var\
-  $line_break\
-  $battery\
-  $cmd_duration\
-  $jobs\
-  $time\
-  $character\
-  """
+format = """
+$username[@](fg:#ff9800)$hostname [│](fg:#ff9800) $directory$git_branch$git_status
+$character"""
 
-[battery]
-full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "💀"
-
-[[battery.display]]
-threshold = 10
-style = "bold red"
-
-[[battery.display]]
-threshold = 60
-style = "bold yellow"
-
-[[battery.display]]
-threshold = 100
-style = "bold green"
-
-[character]
-# symbol = "➜"
-error_symbol = "✗"
-
-[cmd_duration]
-min_time = 500
-format = "took [$duration]($style) "
-
-[directory]
-truncation_length = 6
-truncate_to_repo = true
+[username]
+style_user = "fg:#779b70"  # Green
+style_root = "fg:#aa4450 bold"  # Red for root
+format = "[$user]($style)"
 disabled = false
+show_always = true
 
 [hostname]
 ssh_only = false
-format = "[$hostname]($style) in "
-trim_at = "."
+style = "fg:#719611"  # Dark green for hostname
+format = "[$hostname]($style)"  # Using $style instead of inline color
 disabled = false
 
-[line_break]
+[directory]
+style = "fg:#779b70"  # String green from sourcerer - softer than the bright yellow
+read_only_style = "fg:#aa4450"
+truncation_length = 3
+truncate_to_repo = false
+format = "[$path]($style)[$read_only]($read_only_style) "
+home_symbol = "~"
+truncation_symbol = ".../"
+
+[character]
+success_symbol = "[\\$](fg:#ff9800 bold)"  # Orange
+error_symbol = "[\\$](fg:#aa4450 bold)"     # Red on error
+vicmd_symbol = "[\\$](fg:#719611 bold)"     # Dark green for vi
+
+[git_branch]
+symbol = ""
+style = "fg:#719611"
+format = "[\\[](fg:#ff9800)[$symbol$branch]($style)[\\]](fg:#ff9800) "
+truncation_length = 20
+
+[git_status]
+style = "fg:#ff9800"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted = "="
+ahead = "↑"
+behind = "↓"
+diverged = "↕"
+untracked = "?"
+stashed = "$"
+modified = "*"
+staged = "+"
+renamed = "»"
+deleted = "-"
+
+[cmd_duration]
+min_time = 5_000
+format = "[took ](fg:#686858)[$duration](fg:#cc8800) "
 disabled = false
 
 [python]
-symbol = "🐍 "
-pyenv_version_name = false
-pyenv_prefix = "pyenv"
-style = "bold yellow"
-disabled = false
+symbol = "py:"
+style = "fg:#ff9800"
+format = '[${symbol}${pyenv}${version}( \($virtualenv\))]($style) '
 
-[username]
-style_root = "bold red"
-style_user = "bold yellow"
-show_always = false
-disabled = false
+[nodejs]
+symbol = "js:"
+style = "fg:#779b70"
+format = '[$symbol($version)]($style) '
+
+[rust]
+symbol = "rs:"
+style = "fg:#ff9800"
+format = '[$symbol($version)]($style) '
+
+[jobs]
+symbol = "&"
+style = "fg:#719611"
+format = "[$symbol$number]($style) "
+
+[battery]
+full_symbol = "●"
+charging_symbol = "↑"
+discharging_symbol = "↓"
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 20
+style = "fg:#aa4450 bold"
+
+[[battery.display]]
+threshold = 50
+style = "fg:#ee9a00"
+
+[[battery.display]]
+threshold = 100
+style = "fg:#779b70"

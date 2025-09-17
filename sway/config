@@ -2,6 +2,11 @@
 output DP-3 mode 1920x1080@239.757004Hz pos 0 0
 output DP-2 mode 1920x1080@60.000000Hz pos 1920 0
 
+# Gaming performance optimizations
+output DP-3 adaptive_sync on
+output DP-2 adaptive_sync on
+output * max_render_time 1
+
 # Cursors
 seat * xcursor_theme Bibata-Modern-Classic 24
 
@@ -11,14 +16,19 @@ exec dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESK
 exec waybar -c ~/.config/waybar/config.jsonc -s ~/.config/waybar/style.css
 
 exec swww-daemon
-exec swww img ~/Downloads/wp12478612.jpg
+exec swww img ~/wall_secondary.png
 
+# Audio services - start in correct order
+#exec pipewire
+#exec sh -c 'sleep 3; wireplumber'
+#exec sh -c 'sleep 6; pipewire-pulse'
+#exec sh -c 'sleep 8; blueman-applet'
+exec ~/.config/sway/start-audio.sh
+
+
+# Other services
 exec foot --server &
-exec pipewire &
-exec wireplumber &
-exec blueman-applet &
-exec pipewire-pulse &
-exec swaync
+exec swaync &
 
 #exec_always --no-startup-id pkill -f "Xwayland.*:0" ; sleep 1 ; env __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json Xwayland :0 -rootless
 
@@ -43,17 +53,21 @@ bindsym $mod+p exec sudo bootctl set-oneshot auto-windows && sudo reboot
 bindsym $mod+Up resize grow width 1 px or 1 ppt
 bindsym $mod+Down resize shrink width 1 px or 1 ppt
 
+# No decorations
+#default_border none
+hide_edge_borders both
+
 # Dragging Workspaces
 tiling_drag enable
 floating_modifier $mod normal
-default_border normal 2
-smart_borders on
+#default_border normal 2
+#smart_borders on
 
 # Window gaps
-gaps inner 5
-gaps outer 2
+gaps inner 0
+gaps outer 0
 
-default_border normal 2
+#default_border normal 2
 bindsym $mod+h split h
 
 # Workspaces
@@ -97,7 +111,7 @@ workspace 10 output DP-2
 bindsym $mod+z move container to output left
 
 # Mouse
-seat * xcursor_theme Bibata-Modern-Classic 24
+seat seat0 xcursor_theme Hackneyed 24
 
 input "1133:50503:Logitech_USB_Receiver" {
     accel_profile flat
@@ -112,6 +126,22 @@ for_window [app_id="waybar"] gaps top 0
 for_window [app_id="waybar"] gaps bottom 0
 for_window [app_id="waybar"] gaps left 0
 for_window [app_id="waybar"] gaps right 0
+
+# Gaming window rules
+for_window [class="steam_app_.*"] {
+    border none
+    fullscreen enable
+    inhibit_idle fullscreen
+}
+
+for_window [app_id="steam_app_.*"] {
+    border none
+    fullscreen enable
+    inhibit_idle fullscreen
+}
+
+for_window [class="Steam"] floating enable
+for_window [title="Steam - News"] floating enable, resize set 800 600
 
 client.focused          #202020 #202020 #ffffff #202020 #202020
 client.unfocused        #181818 #181818 #bbbbbb #181818 #181818

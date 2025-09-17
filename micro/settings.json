@@ -1,8 +1,1 @@
-{
-    "colorscheme": "simple",
-    "mkparents": true,
-    "softwrap": true,
-    "clipboard": "external",
-    "clipboardcopy": "wl-copy",
-    "clipboardpaste": "wl-paste"
-}
+{}

@@ -1,0 +1,30 @@
+# Minimal i3blocks configuration
+# Place at: ~/.config/i3blocks/config
+
+# Global properties
+command=/usr/libexec/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+# Volume indicator
+[volume]
+label=VOL 
+instance=Master
+interval=once
+signal=10
+
+# Memory usage
+[memory]
+label=MEM 
+separator=true
+interval=30
+
+# Generic media player support
+#[mediaplayer]
+#instance=spotify
+#interval=5
+#signal=1
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
